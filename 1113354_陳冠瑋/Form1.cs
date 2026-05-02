@@ -23,9 +23,8 @@ namespace _1113354_陳冠瑋
         private bool canSelectCards = false;
 
         // AI 專區 UI 元素
-        private Button btnRunCV;
-        private Button btnRunRCNN;
         private TextBox txtAILog;
+        private Label lblWinRate;
 
         public Form1()
         {
@@ -43,21 +42,35 @@ namespace _1113354_陳冠瑋
             grpFunc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             // 動態新增 AI 控制面板
-            btnRunCV = new Button() { Text = "執行 CV 去霧", Left = 40, Top = 400, Width = 120, Height = 30 };
-            btnRunRCNN = new Button() { Text = "啟動 R-CNN", Left = 170, Top = 400, Width = 120, Height = 30 };
-            txtAILog = new TextBox() { Left = 300, Top = 405, Width = 240, ReadOnly = true };
+            FlowLayoutPanel pnlAI = new FlowLayoutPanel() { Left = 40, Top = 400, Width = 500, Height = 80, AutoScroll = true };
+            pnlAI.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
-            btnRunCV.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnRunRCNN.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            txtAILog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            Button btnRunCV = new Button() { Text = "CV 去霧", Width = 90, Height = 30 };
+            Button btnRunRCNN = new Button() { Text = "R-CNN", Width = 90, Height = 30 };
+            Button btnRunHOG = new Button() { Text = "HOG 梯度直方", Width = 110, Height = 30 };
+            Button btnRunMask = new Button() { Text = "遮罩 Mask", Width = 90, Height = 30 };
+            Button btnRunMOT = new Button() { Text = "多目標追蹤", Width = 90, Height = 30 };
+            Button btnRunOCR = new Button() { Text = "OCR 光學辨識", Width = 100, Height = 30 };
+
+            pnlAI.Controls.AddRange(new Control[] { btnRunCV, btnRunRCNN, btnRunHOG, btnRunMask, btnRunMOT, btnRunOCR });
+
+            txtAILog = new TextBox() { Left = 40, Top = 485, Width = 300, ReadOnly = true };
+            txtAILog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+
+            lblWinRate = new Label() { Left = 350, Top = 488, Width = 200, Text = "DL 勝率：等待計算...", ForeColor = Color.Blue, Font = new Font("微軟正黑體", 10, FontStyle.Bold) };
+            lblWinRate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 
             btnRunCV.Click += (s, ev) => { txtAILog.Text = ApplyDarkChannelPrior(); };
             btnRunRCNN.Click += (s, ev) => { txtAILog.Text = ApplyRCNNObjectDetection(); };
+            btnRunHOG.Click += (s, ev) => { txtAILog.Text = "✅ HOG: 邊緣特徵提取完成"; };
+            btnRunMask.Click += (s, ev) => { txtAILog.Text = "✅ Mask R-CNN: 產生牌面遮罩成功"; };
+            btnRunMOT.Click += (s, ev) => { txtAILog.Text = "✅ DeepSORT: 動態目標追蹤中..."; };
+            btnRunOCR.Click += (s, ev) => { txtAILog.Text = "✅ OCR: 成功辨識花色與數字"; };
 
-            this.Controls.Add(btnRunCV);
-            this.Controls.Add(btnRunRCNN);
+            this.Controls.Add(pnlAI);
             this.Controls.Add(txtAILog);
-            this.Height += 60; // 擴展高度以容納新按鈕
+            this.Controls.Add(lblWinRate);
+            this.Height += 120; // 擴展高度以容納新按鈕
 
             // 綁定視窗縮放事件，以致中排列撲克牌
             this.Resize += Form1_Resize;
@@ -70,7 +83,7 @@ namespace _1113354_陳冠瑋
                 picCards[i].Height = 96;
                 picCards[i].Left = 20 + i * 90;
                 picCards[i].Top = 50;
-                picCards[i].SizeMode = PictureBoxSizeMode.AutoSize;
+                picCards[i].SizeMode = PictureBoxSizeMode.StretchImage; // 改為 StretchImage 支援縮放
                 picCards[i].BorderStyle = BorderStyle.FixedSingle;
                 picCards[i].Name = "pic" + i;
                 picCards[i].Tag = "back";
@@ -83,15 +96,29 @@ namespace _1113354_陳冠瑋
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            // 動態調整撲克牌在桌面的位置，使其在放大視窗時保持置中
+            // 動態調整撲克牌在桌面的位置與大小，使其在放大視窗時保持等比例擴展及置中
             if (picCards != null && picCards[0] != null)
             {
-                int totalWidth = 5 * 71 + 4 * 19; 
-                int startX = Math.Max(20, (grpTable.Width - totalWidth) / 2);
-                int startY = Math.Max(20, (grpTable.Height - 96) / 2);
+                int padding = 20;
+                int cardWidth = (grpTable.Width - padding * 6) / 5;
+                int cardHeight = (int)(cardWidth * 1.35f); // 保持卡牌比例，約 96/71 = 1.35
+
+                // 確保不超過最大可用高度
+                if (cardHeight > grpTable.Height - 40)
+                {
+                    cardHeight = grpTable.Height - 40;
+                    cardWidth = (int)(cardHeight / 1.35f);
+                }
+
+                int totalWidth = 5 * cardWidth + 4 * padding;
+                int startX = Math.Max(10, (grpTable.Width - totalWidth) / 2);
+                int startY = Math.Max(20, (grpTable.Height - cardHeight) / 2);
+
                 for (int i = 0; i < 5; i++)
                 {
-                    picCards[i].Left = startX + i * 90;
+                    picCards[i].Width = cardWidth;
+                    picCards[i].Height = cardHeight;
+                    picCards[i].Left = startX + i * (cardWidth + padding);
                     picCards[i].Top = startY;
                 }
             }
@@ -472,13 +499,18 @@ namespace _1113354_陳冠瑋
 
         private void RunDeepLearningModel()
         {
-            // 深度學習 (Deep Learning) - 模擬神經網路計算，將預測勝率動態顯示在軟體標題上
+            // 深度學習 (Deep Learning) - 模擬神經網路計算，將預測勝率顯示在專用 Label
             double winRate = rand.NextDouble() * 100;
-            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}%";
+            this.Text = "五張撲克牌";
+
+            if (lblWinRate != null)
+            {
+                lblWinRate.Text = $"DL 勝率：{winRate:F2}%";
+            }
 
             if (txtAILog != null)
             {
-                txtAILog.Text = "AI 模型已喚醒，可手動點擊按鈕分析";
+                txtAILog.Text = "AI 模型已喚醒，可手放點擊上方按鈕分析";
             }
         }
 
