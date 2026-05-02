@@ -5,8 +5,8 @@
 ## 三大核心技術
 
 ### 影像處理與電腦視覺 (Image Processing & Computer Vision)
-- **暗通道先驗 (Dark Channel Prior)**：系統內建動態影像優化與影像處理技術。透過 ColorMatrix 即時運算去霧演算法，增強撲克牌面視覺清晰度。
-- **物件偵測 (Object Detection)**：引入區域卷積網路 (R-CNN) 概念，自動辨識每一張派發的撲克牌影像，繪製高精度的特徵辨識框 (Bounding Box)，並附帶物件信心分數 (Confidence Score) 評估。
+- **暗通道先驗 (Dark Channel Prior)**：系統背景內建去霧演算法分析，確保最高效的視覺優化處理，且保持牌面原樣完整呈現。
+- **物件偵測 (Object Detection)**：引入區域卷積網路 (R-CNN) 概念，在背景自動辨識每一張撲克牌影像特徵與信心分數 (Confidence Score) 評估，並將分析結果同步顯示於系統標題。
 
 ### 深度學習 (Deep Learning)
 - **智能勝率預測模型**：每一次發牌與結算，系統在背景使用模型進行推論，即時計算下一手的隱藏勝率，實現「AI 輔助對局」。

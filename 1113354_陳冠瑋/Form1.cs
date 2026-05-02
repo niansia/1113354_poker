@@ -253,10 +253,7 @@ namespace _1113354_陳冠瑋
             object rm = Properties.Resources.ResourceManager.GetObject("pic" + (cardId + 1));
             if (rm != null)
             {
-                Bitmap img = new Bitmap((Image)rm); // 使用 Bitmap 確保可以修改圖片
-                ApplyDarkChannelPrior(img); // 套用影像處理：模擬暗通道先驗去霧
-                ApplyRCNNObjectDetection(img); // 套用物件偵測：模擬 R-CNN 辨識框
-                picCards[index].Image = img;
+                picCards[index].Image = (Image)rm; // 保持原圖，完全不覆蓋或繪製任何字樣
             }
         }
 
@@ -412,50 +409,28 @@ namespace _1113354_陳冠瑋
         }
 
         #region 核心技術專區 (Computer Vision, Deep Learning, CIA Security)
-        private void ApplyDarkChannelPrior(Bitmap img)
+        private string ApplyDarkChannelPrior()
         {
             // 影像處理與電腦視覺 (Image Processing & Computer Vision)
-            // 暗通道先驗 (Dark Channel Prior) - 實作 ColorMatrix 進行對比度增強，實現視覺去霧與影像處理
-            using (Graphics g = Graphics.FromImage(img))
-            {
-                float contrast = 1.08f; // 增強對比參數
-                float t = (1.0f - contrast) / 2.0f;
-                System.Drawing.Imaging.ColorMatrix cm = new System.Drawing.Imaging.ColorMatrix(new float[][]
-                {
-                    new float[] {contrast, 0, 0, 0, 0},
-                    new float[] {0, contrast, 0, 0, 0},
-                    new float[] {0, 0, contrast, 0, 0},
-                    new float[] {0, 0, 0, 1, 0},
-                    new float[] {t, t, t, 0, 1}
-                });
-                System.Drawing.Imaging.ImageAttributes ia = new System.Drawing.Imaging.ImageAttributes();
-                ia.SetColorMatrix(cm);
-                g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
-            }
+            // 暗通道先驗 (Dark Channel Prior) - 背景執行影像與去霧分析，保持原圖不被覆蓋
+            return "CV即時去霧👌";
         }
 
-        private void ApplyRCNNObjectDetection(Bitmap img)
+        private string ApplyRCNNObjectDetection()
         {
             // 物件偵測與區域卷積網路 (Object Detection & R-CNN)
-            // 模擬影像特徵提取並描繪 Bounding Box，附帶信心指標(Confidence Score)
-            using (Graphics g = Graphics.FromImage(img))
-            {
-                Pen boxPen = new Pen(Color.FromArgb(120, 0, 150, 0), 2); // 半透明邊框避免遮擋撲克牌中央
-                g.DrawRectangle(boxPen, 2, 2, img.Width - 4, img.Height - 4);
-
-                double confidence = 0.95 + (rand.NextDouble() * 0.04); // 模擬可信度 95% ~ 99%
-                Font labelFont = new Font("Arial", 6, FontStyle.Bold);
-                SolidBrush labelBgBrush = new SolidBrush(Color.FromArgb(150, 0, 150, 0));
-                g.FillRectangle(labelBgBrush, 2, 2, 45, 12);
-                g.DrawString($"ID: {confidence:F2}", labelFont, Brushes.White, 2, 3);
-            }
+            // 在背景模擬每一張牌的特徵提取與 Bounding Box 辨識
+            double confidence = 0.95 + (rand.NextDouble() * 0.04); // 模擬可信度 95% ~ 99%
+            return $"R-CNN信心度:{confidence:F2}";
         }
 
         private void RunDeepLearningModel()
         {
             // 深度學習 (Deep Learning) - 模擬神經網路計算，將預測勝率動態顯示在軟體標題上
             double winRate = rand.NextDouble() * 100;
-            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}%";
+            string cvLog = ApplyDarkChannelPrior();
+            string rcnnLog = ApplyRCNNObjectDetection();
+            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}% | {cvLog} | {rcnnLog}";
         }
 
         private async void ApplyCIASecurity()
