@@ -38,9 +38,9 @@ namespace _1113354_陳冠瑋
             this.AutoScroll = true; // 開啟視窗自動捲動功能
 
             // 讓傳統群組框支持動態縮放 (響應式設計)
-            grpTable.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
-            grpBet.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            grpFunc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            grpTable.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpBet.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpFunc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
             // 動態新增 AI 控制面板
             FlowLayoutPanel pnlAI = new FlowLayoutPanel() { Left = 40, Width = 480, Height = 70, AutoScroll = true };
@@ -134,7 +134,7 @@ namespace _1113354_陳冠瑋
         {
             if (btnDeal.Enabled == false)
             {
-                switch (e.KeyChar)
+                switch (char.ToLowerInvariant(e.KeyChar))
                 {
                     case 'q': // q鍵
                         // 同花大順
