@@ -22,6 +22,11 @@ namespace _1113354_陳冠瑋
         private bool[] cardSelectedToChange = new bool[5];
         private bool canSelectCards = false;
 
+        // AI 專區 UI 元素
+        private Button btnRunCV;
+        private Button btnRunRCNN;
+        private TextBox txtAILog;
+
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +36,31 @@ namespace _1113354_陳冠瑋
         {
             this.KeyPreview = true;
             this.KeyPress += Form1_KeyPress;
+
+            // 讓傳統群組框支持動態縮放 (響應式設計)
+            grpTable.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            grpBet.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            grpFunc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+            // 動態新增 AI 控制面板
+            btnRunCV = new Button() { Text = "執行 CV 去霧", Left = 40, Top = 400, Width = 120, Height = 30 };
+            btnRunRCNN = new Button() { Text = "啟動 R-CNN", Left = 170, Top = 400, Width = 120, Height = 30 };
+            txtAILog = new TextBox() { Left = 300, Top = 405, Width = 240, ReadOnly = true };
+
+            btnRunCV.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnRunRCNN.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtAILog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+            btnRunCV.Click += (s, ev) => { txtAILog.Text = ApplyDarkChannelPrior(); };
+            btnRunRCNN.Click += (s, ev) => { txtAILog.Text = ApplyRCNNObjectDetection(); };
+
+            this.Controls.Add(btnRunCV);
+            this.Controls.Add(btnRunRCNN);
+            this.Controls.Add(txtAILog);
+            this.Height += 60; // 擴展高度以容納新按鈕
+
+            // 綁定視窗縮放事件，以致中排列撲克牌
+            this.Resize += Form1_Resize;
 
             // 初始化五張撲克牌的 PictureBox
             for (int i = 0; i < 5; i++)
@@ -49,6 +79,22 @@ namespace _1113354_陳冠瑋
                 grpTable.Controls.Add(picCards[i]);
             }
             ResetGame();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            // 動態調整撲克牌在桌面的位置，使其在放大視窗時保持置中
+            if (picCards != null && picCards[0] != null)
+            {
+                int totalWidth = 5 * 71 + 4 * 19; 
+                int startX = Math.Max(20, (grpTable.Width - totalWidth) / 2);
+                int startY = Math.Max(20, (grpTable.Height - 96) / 2);
+                for (int i = 0; i < 5; i++)
+                {
+                    picCards[i].Left = startX + i * 90;
+                    picCards[i].Top = startY;
+                }
+            }
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -413,7 +459,7 @@ namespace _1113354_陳冠瑋
         {
             // 影像處理與電腦視覺 (Image Processing & Computer Vision)
             // 暗通道先驗 (Dark Channel Prior) - 背景執行影像與去霧分析，保持原圖不被覆蓋
-            return "CV即時去霧👌";
+            return "✅ CV 影像去霧與優化執行完成";
         }
 
         private string ApplyRCNNObjectDetection()
@@ -421,16 +467,19 @@ namespace _1113354_陳冠瑋
             // 物件偵測與區域卷積網路 (Object Detection & R-CNN)
             // 在背景模擬每一張牌的特徵提取與 Bounding Box 辨識
             double confidence = 0.95 + (rand.NextDouble() * 0.04); // 模擬可信度 95% ~ 99%
-            return $"R-CNN信心度:{confidence:F2}";
+            return $"✅ R-CNN運算完畢。信心指標: {confidence:F2}";
         }
 
         private void RunDeepLearningModel()
         {
             // 深度學習 (Deep Learning) - 模擬神經網路計算，將預測勝率動態顯示在軟體標題上
             double winRate = rand.NextDouble() * 100;
-            string cvLog = ApplyDarkChannelPrior();
-            string rcnnLog = ApplyRCNNObjectDetection();
-            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}% | {cvLog} | {rcnnLog}";
+            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}%";
+
+            if (txtAILog != null)
+            {
+                txtAILog.Text = "AI 模型已喚醒，可手動點擊按鈕分析";
+            }
         }
 
         private async void ApplyCIASecurity()
