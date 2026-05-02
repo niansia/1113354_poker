@@ -43,7 +43,7 @@ namespace _1113354_陳冠瑋
             grpFunc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             // 動態新增 AI 控制面板
-            FlowLayoutPanel pnlAI = new FlowLayoutPanel() { Left = 40, Top = 400, Width = 500, Height = 80, AutoScroll = true };
+            FlowLayoutPanel pnlAI = new FlowLayoutPanel() { Left = 40, Width = 480, Height = 70, AutoScroll = true };
             pnlAI.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             Button btnRunCV = new Button() { Text = "CV 去霧", Width = 90, Height = 30 };
@@ -55,10 +55,10 @@ namespace _1113354_陳冠瑋
 
             pnlAI.Controls.AddRange(new Control[] { btnRunCV, btnRunRCNN, btnRunHOG, btnRunMask, btnRunMOT, btnRunOCR });
 
-            txtAILog = new TextBox() { Left = 40, Top = 485, Width = 300, ReadOnly = true };
+            txtAILog = new TextBox() { Left = 40, Width = 300, ReadOnly = true };
             txtAILog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 
-            lblWinRate = new Label() { Left = 350, Top = 488, Width = 200, Text = "DL 勝率：等待計算...", ForeColor = Color.Blue, Font = new Font("微軟正黑體", 10, FontStyle.Bold) };
+            lblWinRate = new Label() { Left = 350, Width = 200, Text = "DL 勝率：等待計算...", ForeColor = Color.Blue, Font = new Font("微軟正黑體", 10, FontStyle.Bold) };
             lblWinRate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 
             btnRunCV.Click += (s, ev) => { txtAILog.Text = ApplyDarkChannelPrior(); };
@@ -68,10 +68,15 @@ namespace _1113354_陳冠瑋
             btnRunMOT.Click += (s, ev) => { txtAILog.Text = "✅ DeepSORT: 動態目標追蹤中..."; };
             btnRunOCR.Click += (s, ev) => { txtAILog.Text = "✅ OCR: 成功辨識花色與數字"; };
 
+            int aiTop = grpFunc.Bottom + 10;
+            pnlAI.Top = aiTop;
+            txtAILog.Top = pnlAI.Bottom + 6;
+            lblWinRate.Top = txtAILog.Top + 3;
+
             this.Controls.Add(pnlAI);
             this.Controls.Add(txtAILog);
             this.Controls.Add(lblWinRate);
-            this.Height += 120; // 擴展高度以容納新按鈕
+            this.AutoScrollMinSize = new Size(0, lblWinRate.Bottom + 20);
 
             // 綁定視窗縮放事件，以致中排列撲克牌
             this.Resize += Form1_Resize;

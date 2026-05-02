@@ -40,7 +40,7 @@
             this.grpBet.Controls.Add(this.lblBet);
             this.grpBet.Controls.Add(this.txtTotalFunds);
             this.grpBet.Controls.Add(this.lblTotal);
-            this.grpBet.Location = new System.Drawing.Point(40, 230);
+            this.grpBet.Location = new System.Drawing.Point(40, 150);
             this.grpBet.Name = "grpBet";
             this.grpBet.Size = new System.Drawing.Size(500, 70);
             this.grpBet.TabIndex = 0;
@@ -98,7 +98,7 @@
             this.grpFunc.Controls.Add(this.btnEvaluate);
             this.grpFunc.Controls.Add(this.btnChange);
             this.grpFunc.Controls.Add(this.btnDeal);
-            this.grpFunc.Location = new System.Drawing.Point(40, 320);
+            this.grpFunc.Location = new System.Drawing.Point(40, 230);
             this.grpFunc.Name = "grpFunc";
             this.grpFunc.Size = new System.Drawing.Size(500, 70);
             this.grpFunc.TabIndex = 1;
@@ -147,7 +147,7 @@
             // 
             this.grpTable.Location = new System.Drawing.Point(40, 20);
             this.grpTable.Name = "grpTable";
-            this.grpTable.Size = new System.Drawing.Size(500, 190);
+            this.grpTable.Size = new System.Drawing.Size(500, 120);
             this.grpTable.TabIndex = 2;
             this.grpTable.TabStop = false;
             this.grpTable.Text = "牌桌";
@@ -156,7 +156,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 420);
+            this.ClientSize = new System.Drawing.Size(560, 340);
             this.Controls.Add(this.grpTable);
             this.Controls.Add(this.grpFunc);
             this.Controls.Add(this.grpBet);
