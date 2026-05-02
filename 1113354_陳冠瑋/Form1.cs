@@ -35,6 +35,7 @@ namespace _1113354_陳冠瑋
         {
             this.KeyPreview = true;
             this.KeyPress += Form1_KeyPress;
+            this.AutoScroll = true; // 開啟視窗自動捲動功能
 
             // 讓傳統群組框支持動態縮放 (響應式設計)
             grpTable.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
