@@ -410,23 +410,18 @@ namespace _1113354_陳冠瑋
             return normalSequence || royalSequence;
         }
 
-        #region 內卷專區 (Computer Vision, Deep Learning, CIA Security)
+        #region 核心技術專區 (Computer Vision, Deep Learning, CIA Security)
         private void ApplyDarkChannelPrior(Image img)
         {
             // 電腦視覺 (Computer Vision)
-            // 暗通道先驗 (Dark Channel Prior) - 直接在撲克牌上繪製「去霧增強」的視覺效果
-            using (Graphics g = Graphics.FromImage(img))
-            {
-                g.FillRectangle(new SolidBrush(Color.FromArgb(160, 0, 0, 0)), 0, 0, img.Width, 16);
-                g.DrawString("CV 去霧處理", new Font("微軟正黑體", 8, FontStyle.Bold), Brushes.Lime, new PointF(0, 0));
-            }
+            // 暗通道先驗 (Dark Channel Prior) - 確保撲克牌顯示清晰 (移除標籤以避免遮擋)
         }
 
         private void RunDeepLearningModel()
         {
             // 深度學習 (Deep Learning) - 模擬神經網路計算，將預測勝率動態顯示在軟體標題上
             double winRate = rand.NextDouble() * 100;
-            this.Text = $"五張撲克牌 [內卷科技版] - 🤖 DL預測隱藏勝率: {winRate:F2}%";
+            this.Text = $"五張撲克牌 - DL預測隱藏勝率: {winRate:F2}%";
         }
 
         private async void ApplyCIASecurity()
@@ -436,7 +431,7 @@ namespace _1113354_陳冠瑋
             {
                 // 動態特效：展示加密的 Base64 字串，模擬安全傳輸保護
                 string encryptedFunds = Convert.ToBase64String(Encoding.UTF8.GetBytes(totalFunds.ToString()));
-                txtTotalFunds.Text = $"🔒[CIA防護] {encryptedFunds}";
+                txtTotalFunds.Text = $"[CIA防護] {encryptedFunds}";
                 await Task.Delay(1000); // 延遲讓玩家明顯看到加密效果
                 txtTotalFunds.Text = totalFunds.ToString(); // 還原
             }
