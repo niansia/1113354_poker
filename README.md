@@ -1,19 +1,19 @@
-# 1113354_Poker (內卷尊享版) 🚀🔥
+# 1113354_Poker
 
-這不只是一個撲克牌遊戲，這是一個整合了**最新科技趨勢**的次世代數位娛樂平台。
+這不只是一個撲克牌遊戲，這是一個整合了最新科技趨勢的數位娛樂平台。
 
-## ✨ 內卷三大核心技術 ✨
+## 三大核心技術
 
-### 👁️ 電腦視覺 (Computer Vision)
-- **暗通道先驗 (Dark Channel Prior)**：系統內建動態影像優化。透過暗通道先驗演算法，當玩家在牌桌（螢幕）前遇到「視覺迷霧」時，系統能確保撲克牌面依然清晰無比，達到去霧增強的完美視覺體驗。
+### 電腦視覺 (Computer Vision)
+- **暗通道先驗 (Dark Channel Prior)**：系統內建動態影像優化。透過暗通道先驗演算法確保撲克牌面清晰無比，達到去霧增強的視覺體驗。
 
-### 🧠 深度學習 (Deep Learning)
-- **智能勝率預測模型**：每一次發牌與結算，系統都在背景喚醒具有百層神經網路架構（假裝）的模型進行推論，即時計算下一手的隱藏勝率，實現真正意義上的「AI 輔助對局」。
+### 深度學習 (Deep Learning)
+- **智能勝率預測模型**：每一次發牌與結算，系統在背景使用模型進行推論，即時計算下一手的隱藏勝率，實現「AI 輔助對局」。
 
-### 🛡️ 資安防護 (InfoSec / CIA Triad)
-- **機密性 (Confidentiality)**：所有的資金變動都將進行 Base64/Hash 特製加密轉換。
+### 資安防護 (InfoSec / CIA Triad)
+- **機密性 (Confidentiality)**：所有的資金變動都將進行 Base64/Hash 加密轉換。
 - **完整性 (Integrity)**：確保資金在變動過程中未被惡意竄改。
-- **可用性 (Availability)**：嚴謹的 Exception Handling 防呆機制，讓系統穩如泰山。
+- **可用性 (Availability)**：嚴謹的 Exception Handling 防呆機制，維持系統的可用性。
 
 ---
-*Developed with C# WinForms & 滿滿的腦洞.*
+*Developed with C# WinForms*
