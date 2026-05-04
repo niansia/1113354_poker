@@ -1,9 +1,0 @@
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\bin\Debug\1113354_陳冠瑋.exe.config
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\bin\Debug\1113354_陳冠瑋.exe
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\bin\Debug\1113354_陳冠瑋.pdb
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\1113354_陳冠瑋.csproj.AssemblyReference.cache
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\_1113354_陳冠瑋.Properties.Resources.resources
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\1113354_陳冠瑋.csproj.GenerateResource.cache
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\1113354_陳冠瑋.csproj.CoreCompileInputs.cache
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\1113354_陳冠瑋.exe
-C:\Users\User\OneDrive\桌面\1113354_陳冠瑋\1113354_陳冠瑋\obj\Debug\1113354_陳冠瑋.pdb
